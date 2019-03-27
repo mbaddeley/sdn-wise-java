@@ -32,7 +32,7 @@ import org.graphstream.graph.Node;
 
 /**
  * Representation of a Dijkstra routing algorithm based SDN-WISE controller.
- * When a request from the network is sent, this class sends a OpenPath message
+* When a request from the network is sent, this class sends a OpenPath message
  * with the shortest p. No action is taken if the topology of the network
  * changes.
  *
@@ -65,7 +65,7 @@ public final class ControllerDijkstra extends AbstractController {
             final NetworkGraph networkGraph,
             final NodeAddress sinkAddress) {
         super(id, lower, networkGraph, sinkAddress);
-        dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "length");
+        dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, null);
     }
 
     @Override
@@ -92,8 +92,7 @@ public final class ControllerDijkstra extends AbstractController {
 
             if (srcNode != null && dstNode != null) {
 
-                if (!lastSource.equals(src) || lastModification
-                        != network.getLastModification()) {
+                if (!lastSource.equals(src) || lastModification != network.getLastModification()) {
                     results.clear();
                     dijkstra.init(network.getGraph());
                     dijkstra.setSource(network.getNode(src));
@@ -101,12 +100,15 @@ public final class ControllerDijkstra extends AbstractController {
                     lastSource = src;
                     lastModification = network.getLastModification();
                 } else {
-                    p = results.get(data.getDst());
+                    // System.out.println("HERE2");
                 }
                 if (p == null) {
                     p = new LinkedList<>();
-                    for (Node node : dijkstra.getPathNodes(network
-                            .getNode(dst))) {
+                    for (Node node : network.getGraph()) {
+                      System.out.printf("%s->%s:%6.2f%n", dijkstra.getSource(),
+                        network.getNode(dst), dijkstra.getPathLength(network.getNode(dst)));
+                    }
+                    for (Node node : dijkstra.getPathNodes(network.getNode(dst))) {
                         p.push(node.getAttribute("nodeAddress"));
                     }
                     log(Level.INFO, "Path: " + p);
@@ -119,6 +121,8 @@ public final class ControllerDijkstra extends AbstractController {
                     data.setSrc(req.getSrc());
                     data.setNxh(getSinkAddress());
                     sendNetworkPacket(data);
+                } else {
+                  log(Level.WARNING, "Path length is < 1 " + p);
                 }
             }
         }

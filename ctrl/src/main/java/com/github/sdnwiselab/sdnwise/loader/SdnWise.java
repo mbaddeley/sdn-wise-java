@@ -50,7 +50,7 @@ public final class SdnWise {
     /**
      * Set to true to start an emulated network.
      */
-    private static final boolean EMULATED = true;
+    private static final boolean EMULATED = false;
     /**
      * Emulation constants.
      */
@@ -152,7 +152,7 @@ public final class SdnWise {
         for (int i = 0; i <= 128; i++) {
             nodeSetAll.add(new NodeAddress(i));
         }
-        
+
         // Register the Controllers
         flowVisor.addController(controller.getId(), nodeSetAll);
         flowVisor.addController(onos, nodeSetAll);

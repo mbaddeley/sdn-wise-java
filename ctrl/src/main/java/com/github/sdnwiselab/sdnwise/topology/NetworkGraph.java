@@ -345,7 +345,8 @@ public class NetworkGraph extends Observable {
      * @return true if the node is still alive, false otherwise
      */
     private boolean isAlive(final long thrs, final long last, final long now) {
-        return ((now - last) < thrs * MILLIS_IN_SECOND);
+        // return ((now - last) < thrs * MILLIS_IN_SECOND);
+        return true;
     }
 
 }
