@@ -34,7 +34,7 @@ public class NetworkPacket implements Cloneable {
     /**
      * The maximum length of a NetworkPAcket.
      */
-    public static final byte MAX_PACKET_LENGTH = 116;
+    public static final byte MAX_PACKET_LENGTH = 115;
 
     /**
      * The indexes of the different fields in the packet.
@@ -44,9 +44,10 @@ public class NetworkPacket implements Cloneable {
             DST_INDEX = 2,
             SRC_INDEX = 4,
             TYP_INDEX = 6,
-            TTL_INDEX = 7,
-            NXH_INDEX = 8,
-            PLD_INDEX = 10;
+            PID_INDEX = 7,
+            TTL_INDEX = 8,
+            NXH_INDEX = 9,
+            PLD_INDEX = 11;
 
     /**
      * The possible values of the type of a packet.
@@ -63,7 +64,7 @@ public class NetworkPacket implements Cloneable {
     /**
      * An SDN-WISE header is always 10 bytes long.
      */
-    public static final byte DFLT_HDR_LEN = 10;
+    public static final byte DFLT_HDR_LEN = 11;
 
     /**
      * The maximum number of hops allowed in the network.
@@ -98,6 +99,8 @@ public class NetworkPacket implements Cloneable {
                 return DST_INDEX;
             case "TYP":
                 return TYP_INDEX;
+            case "PID":
+                return PID_INDEX;
             case "TTL":
                 return TTL_INDEX;
             case "NXH":
@@ -135,6 +138,8 @@ public class NetworkPacket implements Cloneable {
                 return "SRC";
             case (TYP_INDEX):
                 return "TYP";
+            case (PID_INDEX):
+                return "PID";
             case (TTL_INDEX):
                 return "TTL";
             case (NXH_INDEX):
@@ -292,6 +297,7 @@ public class NetworkPacket implements Cloneable {
                 setSrc(array[SRC_INDEX], array[SRC_INDEX + 1]);
                 setDst(array[DST_INDEX], array[DST_INDEX + 1]);
                 setTyp(array[TYP_INDEX]);
+                setPid(array[PID_INDEX]);
                 setTtl(array[TTL_INDEX]);
                 setNxh(array[NXH_INDEX], array[NXH_INDEX + 1]);
                 setPayload(Arrays.copyOfRange(array, DFLT_HDR_LEN,
@@ -437,6 +443,16 @@ public class NetworkPacket implements Cloneable {
      */
     public final NetworkPacket setTyp(final byte value) {
         data[TYP_INDEX] = value;
+        return this;
+    }
+
+    public final int getPid() {
+        return data[PID_INDEX];
+    }
+
+
+    public final NetworkPacket setPid(final byte value) {
+        data[PID_INDEX] = value;
         return this;
     }
 
