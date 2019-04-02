@@ -178,6 +178,26 @@ public class NetworkPacket implements Cloneable {
     }
 
     /**
+     * Creates an empty NetworkPacket. The TTL and LEN values are set to
+     * default.
+     *
+     * @param net Network ID of the packet
+     * @param src source address of the packet
+     * @param dst destination address of the packet
+     */
+    public NetworkPacket(final int net, final NodeAddress src,
+                         final NodeAddress dst, final int pid) {
+        data = new byte[MAX_PACKET_LENGTH];
+        setNet((byte) net);
+        setSrc(src);
+        setDst(dst);
+        setPid(pid);
+        setTtl(DFLT_TTL_MAX);
+        setLen(DFLT_HDR_LEN);
+    }
+
+
+    /**
      * Returns a NetworkPacket given a int array. Integer values will be
      * truncated to byte.
      *
@@ -450,9 +470,14 @@ public class NetworkPacket implements Cloneable {
         return data[PID_INDEX];
     }
 
+    public final NetworkPacket setPid(final byte valueH, final byte valueL) {
+        data[PID_INDEX] = valueL;
+        data[PID_INDEX + 1] = valueH;
+        return this;
+    }
 
-    public final NetworkPacket setPid(final byte value) {
-        data[PID_INDEX] = value;
+    public final NetworkPacket setPid(final int value) {
+        setPid((byte)((value >> 8) & 0xFF), (byte)(value & 0xFF));
         return this;
     }
 

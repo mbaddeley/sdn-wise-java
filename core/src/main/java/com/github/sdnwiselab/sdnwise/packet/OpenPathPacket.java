@@ -54,9 +54,9 @@ public class OpenPathPacket extends NetworkPacket {
      * @param path the list of NodeAddresses included in the path
      */
     public OpenPathPacket(final int net, final NodeAddress src,
-            final NodeAddress dst,
+            final NodeAddress dst, final int pid,
             final List<NodeAddress> path) {
-        super(net, src, dst);
+        super(net, src, dst, pid);
         setTyp(OPEN_PATH);
         setPayloadAt((byte) 0, WINDOWS_SIZE_INDEX);
         setPath(path);

@@ -41,7 +41,7 @@ public final class OpenPathPacketTest {
         path.add(new NodeAddress("0.3"));
         path.add(new NodeAddress("0.4"));
         OpenPathPacket instance = new OpenPathPacket(1, new NodeAddress("0.2"),
-                new NodeAddress("0.0"), path);
+                new NodeAddress("0.0"), 1600, path);
         LinkedList<Window> wl = new LinkedList<>();
         wl.add(Window.fromString("P.TYP == 10"));
         instance.setWindows(wl);
