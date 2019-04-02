@@ -34,7 +34,7 @@ public class NetworkPacket implements Cloneable {
     /**
      * The maximum length of a NetworkPAcket.
      */
-    public static final byte MAX_PACKET_LENGTH = 115;
+    public static final byte MAX_PACKET_LENGTH = 114;
 
     /**
      * The indexes of the different fields in the packet.
@@ -45,9 +45,9 @@ public class NetworkPacket implements Cloneable {
             SRC_INDEX = 4,
             TYP_INDEX = 6,
             PID_INDEX = 7,
-            TTL_INDEX = 8,
-            NXH_INDEX = 9,
-            PLD_INDEX = 11;
+            TTL_INDEX = 9,
+            NXH_INDEX = 10,
+            PLD_INDEX = 12;
 
     /**
      * The possible values of the type of a packet.
@@ -64,7 +64,7 @@ public class NetworkPacket implements Cloneable {
     /**
      * An SDN-WISE header is always 10 bytes long.
      */
-    public static final byte DFLT_HDR_LEN = 11;
+    public static final byte DFLT_HDR_LEN = 12;
 
     /**
      * The maximum number of hops allowed in the network.
