@@ -115,10 +115,10 @@ public final class ControllerDijkstra extends AbstractController {
                     results.put(data.getDst(), p);
                 }
                 if (p.size() > 1) {
-                    System.out.println("Respond for REQ: " + req.getPid());
-                    sendPath((byte) data.getNet(), p.getFirst(), req.getPid(), p);
+                    System.out.println("Respond for REQ: " + req.getPid() + " to " + req.getMatch());
+                    sendPath((byte) data.getNet(), p.getFirst(), req.getPid(), (byte) req.getMatch(), p);
                     Collections.reverse(p);
-                    sendPath((byte) data.getNet(), p.getFirst(), req.getPid(), p);
+                    sendPath((byte) data.getNet(), p.getFirst(), req.getPid(), (byte) req.getMatch(), p);
                     data.setSrc(req.getSrc());
                     data.setNxh(getSinkAddress());
                     sendNetworkPacket(data);

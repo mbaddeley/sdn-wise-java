@@ -493,9 +493,11 @@ public abstract class AbstractController extends ControlPlaneLayer implements
     }
 
     @Override
-    public final void sendPath(final byte net, final NodeAddress dst, final int pid,
+    public final void sendPath(final byte net, final NodeAddress dst,
+            final int pid, final byte match,
             final List<NodeAddress> path) {
         OpenPathPacket op = new OpenPathPacket(net, sinkAddress, dst, pid, path);
+        op.setMatch(match);
         sendNetworkPacket(op);
     }
 

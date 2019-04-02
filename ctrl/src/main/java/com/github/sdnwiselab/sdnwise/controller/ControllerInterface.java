@@ -227,7 +227,7 @@ public interface ControllerInterface {
      * @param dst network address of the destination node.
      * @param path the list of all the NodeAddresses in the path.
      */
-    void sendPath(byte net, NodeAddress dst, int pid, List<NodeAddress> path);
+    void sendPath(byte net, NodeAddress dst, int pid, byte match, List<NodeAddress> path);
 
     /**
      * Sets the address of a node. The new address value is passed using two
